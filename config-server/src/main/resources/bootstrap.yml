@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: configserver
+  cloud:
+    config:
+      server:
+        git:
+          #local
+          #uri: file://C:/Users/tariy/OneDrive/Desktop/Learning/kafka-event-driven-microservice/microservices-demo/config-server-repository
+          #remote
+          uri: https://github.com/niktariyal/spring-cloud-config-server-repository
+          default-label: main
+          clone-on-start: true
+          username: niktariyal
+          password: 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
+    fail-fast: true
+  security:
+    user:
+      name: spring_cloud_user
+#      password: ENC(1Em6cBoWtQM4V1yycsieGNeVdSkhPDHsfEZkCT5Hq7+RAw8VyEOOh9Kp+vLRPBxzxQOSnxjMxo5qlUMneMjM/w==)
+      password: '{cipher}4f242b441249a11f4c0b2207cb28ef7aab30a46ee58202d000ce47ac3b3fec639fa056295c208f49af8d66b8a2732421'
+
+#this config is required to encrypt the text and use it with ENC(--)
+#jasypt:
+#  encryptor:
+#    password: Demo_Pwd!2020 #${JASYPT_ENCRYPTOR_PASSWORD}
+
+#this config is required for encrypt/decrypt end points
+encrypt:
+  key: 'Demo_Pwd!2020'
