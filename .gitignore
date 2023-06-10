@@ -2,6 +2,7 @@ HELP.md
 target/
 logs/
 docker-logs/
+config-server-repository/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
