@@ -3,10 +3,15 @@ package com.microservices.demo.elastic.query.service.api;
 import com.microservices.demo.elastic.query.service.business.ElasticQueryService;
 import com.microservices.demo.elastic.query.service.common.model.ElasticQueryServiceRequestModel;
 import com.microservices.demo.elastic.query.service.common.model.ElasticQueryServiceResponseModel;
+import com.microservices.demo.elastic.query.service.model.ElasticQueryServiceAnalyticsResponseModel;
 import com.microservices.demo.elastic.query.service.model.ElasticQueryServiceResponseModelV2;
+import com.microservices.demo.elastic.query.service.security.TwitterQueryUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
+import org.springframework.security.oauth2.client.annotation.RegisteredOAuth2AuthorizedClient;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -43,11 +48,16 @@ public class ElasticDocumentControllerV2 {
     }
 
     @PostMapping("/get-document-by-text")
-    public ResponseEntity<List<ElasticQueryServiceResponseModelV2>> getDocumentByText(
-            @RequestBody @Valid ElasticQueryServiceRequestModel elasticQueryServiceRequestModel){
-        List<ElasticQueryServiceResponseModelV2> response =
-                getModelsResponseV2(elasticQueryService.getDocumentByText(elasticQueryServiceRequestModel.getText()));
-        LOG.info("Elasticsearch returned {} of documents", response.size());
+    public ResponseEntity<ElasticQueryServiceAnalyticsResponseModel> getDocumentByText(
+            @RequestBody @Valid ElasticQueryServiceRequestModel elasticQueryServiceRequestModel,
+            @AuthenticationPrincipal TwitterQueryUser principal,
+            @RegisteredOAuth2AuthorizedClient("keycloak") OAuth2AuthorizedClient oAuth2AuthorizedClient){
+//        List<ElasticQueryServiceResponseModelV2> response =
+//                getModelsResponseV2(elasticQueryService.getDocumentByText(elasticQueryServiceRequestModel.getText()));
+        ElasticQueryServiceAnalyticsResponseModel response =
+                elasticQueryService.getDocumentByText(elasticQueryServiceRequestModel.getText(),
+                        oAuth2AuthorizedClient.getAccessToken().getTokenValue());
+        LOG.info("Elasticsearch returned {} of documents", response.getQueryResponseModels().size());
         return ResponseEntity.ok(response);
     }
 
