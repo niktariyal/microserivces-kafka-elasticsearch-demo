@@ -7,7 +7,7 @@ services:
       - node.name=elastic-1
       - cluster.name=es-twitter-cluster
       - discovery.seed_hosts=elastic-2  #,elastic-3
-      - cluster.initial_master_nodes=elastic-1,elastic-2  #,elastic-3
+      - cluster.initial_master_nodes=elastic-2  #,elastic-3
       - bootstrap.memory_lock=true
       - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
     ulimits:
@@ -21,7 +21,7 @@ services:
     networks:
       - ${GLOBAL_NETWORK:-elastic}
   elastic-2:
-    image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTIC_VERSION:-latest}
+    image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTIC_VERSION}
     environment:
       - node.name=elastic-2
       - cluster.name=es-twitter-cluster
