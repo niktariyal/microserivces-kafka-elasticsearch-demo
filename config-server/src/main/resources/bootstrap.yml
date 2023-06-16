@@ -12,7 +12,7 @@ spring:
           default-label: main
           clone-on-start: true
           username: niktariyal
-          password: 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
+          password: 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
     fail-fast: true
   security:
     user:

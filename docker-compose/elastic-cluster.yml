@@ -4,39 +4,47 @@ services:
     image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTIC_VERSION:-latest}
     hostname: elastic-1
     environment:
-      - node.name=elastic-1
-      - cluster.name=es-twitter-cluster
-      - discovery.seed_hosts=elastic-2  #,elastic-3
-      - cluster.initial_master_nodes=elastic-2  #,elastic-3
-      - bootstrap.memory_lock=true
+#      - node.name=elastic-1
+#      - cluster.name=es-twitter-cluster
+#      - discovery.seed_hosts=elastic-2  #,elastic-3
+#      - cluster.initial_master_nodes=elastic-2  #,elastic-3
+#      - bootstrap.memory_lock=true
+      - xpack.security.enabled=false
+      - discovery.type=single-node
       - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
     ulimits:
       memlock:
         soft: -1
         hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    cap_add:
+      - IPC_LOCK
     volumes:
       - data01:/usr/share/elasticsearch/data
     ports:
       - 9200:9200
+      - 9300:9300
     networks:
       - ${GLOBAL_NETWORK:-elastic}
-  elastic-2:
-    image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTIC_VERSION}
-    environment:
-      - node.name=elastic-2
-      - cluster.name=es-twitter-cluster
-      - discovery.seed_hosts=elastic-1  #,elastic-3
-      - cluster.initial_master_nodes=elastic-1,elastic-2  #,elastic-3
-      - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-    volumes:
-      - data02:/usr/share/elasticsearch/data
-    networks:
-      - ${GLOBAL_NETWORK:-elastic}
+#  elastic-2:
+#    image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTIC_VERSION}
+#    environment:
+#      - node.name=elastic-2
+#      - cluster.name=es-twitter-cluster
+#      - discovery.seed_hosts=elastic-1  #,elastic-3
+#      - cluster.initial_master_nodes=elastic-1,elastic-2  #,elastic-3
+#      - bootstrap.memory_lock=true
+#      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+#    ulimits:
+#      memlock:
+#        soft: -1
+#        hard: -1
+#    volumes:
+#      - data02:/usr/share/elasticsearch/data
+#    networks:
+#      - ${GLOBAL_NETWORK:-elastic}
 
 #  elastic-3:
 #    image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTIC_VERSION:-latest}
@@ -59,7 +67,7 @@ services:
 volumes:
   data01:
     driver: local
-  data02:
-    driver: local
+#  data02:
+#    driver: local
 #  data03:
 #    driver: local

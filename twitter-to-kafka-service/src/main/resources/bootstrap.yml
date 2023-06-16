@@ -19,6 +19,6 @@ encrypt:
 
 
 twitter-to-kafka-service:
-  enable-v2-tweets: true
+  enable-v2-tweets: false
   enable-v1-tweets: false
-  enable-mock-tweets: false
+  enable-mock-tweets: true

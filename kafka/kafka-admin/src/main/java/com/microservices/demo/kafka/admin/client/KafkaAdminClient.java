@@ -94,7 +94,7 @@ public class KafkaAdminClient {
                         kafkaConfigData.getNumOfPartitions(),
                         kafkaConfigData.getReplicationFactor()))
                 .collect(Collectors.toList());
-
+        LOG.info("Creating NewTopic {} topics(s)", kafkaTopics);
         return adminClient.createTopics(kafkaTopics);
     }
 

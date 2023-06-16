@@ -31,7 +31,7 @@ services:
     depends_on:
       - config-server
       - kafka-broker-1
-      - kafka-broker-2
+#      - kafka-broker-2
 #      - kafka-broker-3
     environment:
       - "JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005 -Xss512K"
@@ -41,8 +41,9 @@ services:
       - "KAFKA-CONFIG_TOPIC-NAMES-TO-CREATE_0=twitter-topic"
       - "KAFKA-CONFIG_TOPIC-NAMES-TO-CREATE_1=twitter-analytics-topic"
 #      - "KAFKA-CONFIG_BOOTSTRAP-SERVERS=kafka-broker-1:9092, kafka-broker-2:9092, kafka-broker-3:9092"
-      - "KAFKA-CONFIG_BOOTSTRAP-SERVERS=kafka-broker-1:9092, kafka-broker-2:9092"
+#      - "KAFKA-CONFIG_BOOTSTRAP-SERVERS=kafka-broker-1:9092, kafka-broker-2:9092"
       - "KAFKA-CONFIG_BOOTSTRAP-SERVERS=kafka-broker-1:9092"
+      - "KAFKA-CONFIG_REPLICATION-FACTOR=1"
       - "KAFKA-CONFIG_SCHEMA-REGISTRY-URL=http://schema-registry:8081"
       - "TWITTER-TO-KAFKA-SERVICE_ENABLE-MOCK-TWEETS=true"
       - "TWITTER-TO-KAFKA-SERVICE_ENABLE-V2-TWEETS=false"
@@ -62,21 +63,22 @@ services:
     entrypoint: ["check-kafka-topics-created.sh"]
     depends_on:
       - config-server
-      - twitter-to-kafka-service
       - kafka-broker-1
-      - kafka-broker-2
+#      - kafka-broker-2
 #      - kafka-broker-3
       - elastic-1
-      - elastic-2
+#      - elastic-2
 #      - elastic-3
     environment:
 #      - "JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5006 -Xss1024K"
-      - "JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5006 -Xms128m -Xmx256m"
+      - "JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5006"
       - "LOGGING_LEVEL_COM_MICROSERVICES_DEMO=error"
       - "LOGGING_LEVEL_ROOT=error"
       - "KAFKA-CONFIG_TOPIC-NAME=twitter-topic"
 #      - "KAFKA-CONFIG_BOOTSTRAP-SERVERS=kafka-broker-1:9092, kafka-broker-2:9092, kafka-broker-3:9092"
-      - "KAFKA-CONFIG_BOOTSTRAP-SERVERS=kafka-broker-1:9092, kafka-broker-2:9092"
+#      - "KAFKA-CONFIG_BOOTSTRAP-SERVERS=kafka-broker-1:9092, kafka-broker-2:9092"
+      - "KAFKA-CONFIG_BOOTSTRAP-SERVERS=kafka-broker-1:9092"
+      - "KAFKA-CONFIG_REPLICATION-FACTOR=1"
       - "KAFKA-CONFIG_SCHEMA-REGISTRY-URL=http://schema-registry:8081"
       - "SPRING_CLOUD_CONFIG_URI=http://config-server:8888"
       - "ELASTIC-CONFIG_INDEX-NAME=twitter-index"
@@ -114,9 +116,8 @@ services:
     entrypoint: [ "check-config-server-started.sh" ]
     depends_on:
       - config-server
-#      - kafka-to-elastic-service
       - elastic-1
-      - elastic-2
+#      - elastic-2
 #      - elastic-3
     environment:
       - "JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5008"
@@ -187,7 +188,6 @@ services:
     depends_on:
       - config-server
     environment:
-#      - "JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5010 -Xss512K"
       - "JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5010 -Xss256K"
       - "LOGGING_LEVEL_COM_MICROSERVICES_DEMO=info"
       - "LOGGING_LEVEL_ROOT=info"
@@ -266,7 +266,9 @@ services:
       - "SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER-URI=http://keycloak-authorization-server:9091/auth/realms/microservices_realm"
       - "SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK-SET-URI=http://keycloak-authorization-server:9091/auth/realms/microservices_realm/protocol/openid-connect/certs"
 #      - "KAFKA-CONFIG_BOOTSTRAP-SERVERS=kafka-broker-1:9092, kafka-broker-2:9092, kafka-broker-3:9092"
-      - "KAFKA-CONFIG_BOOTSTRAP-SERVERS=kafka-broker-1:9092, kafka-broker-2:9092"
+#      - "KAFKA-CONFIG_BOOTSTRAP-SERVERS=kafka-broker-1:9092, kafka-broker-2:9092"
+      - "KAFKA-CONFIG_BOOTSTRAP-SERVERS=kafka-broker-1:9092"
+      - "KAFKA-CONFIG_REPLICATION-FACTOR=1"
       - "KAFKA-CONFIG_SCHEMA-REGISTRY-URL=http://schema-registry:8081"
       - "ENCRYPT_KEY=Demo_Pwd!2020"
     networks:
