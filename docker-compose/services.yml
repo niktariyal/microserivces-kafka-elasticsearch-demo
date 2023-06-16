@@ -247,7 +247,7 @@ services:
     image: ${GROUP_ID}/kafka.streams.service:${SERVICE_VERSION:-latest}
     ports:
       - "5012:5012"
-      - "8187:818"
+      - "8187:8187"
     volumes:
       - "./docker-logs:/workspace/kafka-streams-service/logs"
       - "./check-config-server-started.sh:/usr/local/bin/check-config-server-started.sh"
@@ -256,6 +256,7 @@ services:
     entrypoint: [ "check-config-server-started.sh" ]
     depends_on:
       - config-server
+      - twitter-to-kafka-service
     environment:
       - "JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5012 -Xss256K"
       - "LOGGING_LEVEL_COM_MICROSERVICES_DEMO=info"

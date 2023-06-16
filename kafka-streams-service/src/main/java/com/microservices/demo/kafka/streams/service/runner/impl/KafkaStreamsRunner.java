@@ -33,7 +33,7 @@ public class KafkaStreamsRunner implements StreamsRunner<String, Long> {
 
     public static final Logger LOG = LoggerFactory.getLogger(KafkaStreamsRunner.class);
 
-    private static final String REGEX = "\\w+";
+    private static final String REGEX = "\\s+";
     private final KafkaStreamsConfigData kafkaStreamsConfigData;
     private final KafkaConfigData kafkaConfigData;
     private final Properties streamsConfiguration;
@@ -102,7 +102,11 @@ public class KafkaStreamsRunner implements StreamsRunner<String, Long> {
                 getSerdeAnalyticsModel(serdeConfig);
 
         twitterAvroModelKStream
-                .flatMapValues(value -> Arrays.asList(pattern.split(value.getText().toLowerCase())))
+                .flatMapValues(value -> {
+                            String[] values = pattern.split(value.getText().toLowerCase());
+                            return Arrays.asList(values);
+                        }
+                )
                 .groupBy((key, word) -> word)
                 .count(Materialized.
                         <String,Long, KeyValueStore<Bytes, byte[]>>as(kafkaStreamsConfigData.getWordCountStoreName()))
@@ -110,6 +114,7 @@ public class KafkaStreamsRunner implements StreamsRunner<String, Long> {
                 .map(mapToAnalyticsModel())
                 .to(kafkaStreamsConfigData.getOutputTopicName(),
                         Produced.with(Serdes.String(),serdeTwitterAnalyticsAvroModel));
+
     }
 
     private KeyValueMapper<String, Long, KeyValue<? extends String,? extends TwitterAnalyticsAvroModel>>
