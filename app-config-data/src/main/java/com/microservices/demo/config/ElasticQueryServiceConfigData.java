@@ -14,6 +14,7 @@ public class ElasticQueryServiceConfigData {
     private Long backPressureDelayMs;
     private WebClient webClient;
     private Query queryFromKafkaStateStore;
+    private Query queryFromAnalyticsDatabase;
 
     @Data
     public static class WebClient{

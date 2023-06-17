@@ -76,8 +76,17 @@ public class TwitterElasticQueryService implements ElasticQueryService {
         if(QueryType.KAFKA_STATE_STORE.getType().equals(
                 elasticQueryServiceConfigData.getWebClient().getQueryType())){
             return getFromKafkaStateStore(text, accessToken).getWordCount();
+        }else if(QueryType.ANALYTICS_DATABASE.getType().equals(
+                elasticQueryServiceConfigData.getWebClient().getQueryType())){
+            return getFromAnalyticsDatabase(text, accessToken).getWordCount();
         }
         return 0L;
+    }
+
+    private ElasticQueryServiceWordCountResponseModel getFromAnalyticsDatabase(String word, String accessToken) {
+        ElasticQueryServiceConfigData.Query queryFromAnalyticsDatabase =
+                elasticQueryServiceConfigData.getQueryFromAnalyticsDatabase();
+        return retrieveResponseModel(word, accessToken, queryFromAnalyticsDatabase);
     }
 
     private ElasticQueryServiceWordCountResponseModel getFromKafkaStateStore(String text, String accessToken) {
@@ -86,7 +95,8 @@ public class TwitterElasticQueryService implements ElasticQueryService {
         return retrieveResponseModel(text, accessToken, queryFromKafkaStateStore);
     }
 
-    private ElasticQueryServiceWordCountResponseModel retrieveResponseModel(String text, String accessToken,
+    private ElasticQueryServiceWordCountResponseModel retrieveResponseModel(String text,
+                                                                            String accessToken,
                                        ElasticQueryServiceConfigData.Query queryFromKafkaStateStore) {
         return webClientBuilder.build()
                 .method(HttpMethod.valueOf(queryFromKafkaStateStore.getMethod()))
