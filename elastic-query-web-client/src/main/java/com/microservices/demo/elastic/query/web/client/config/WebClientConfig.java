@@ -25,8 +25,8 @@ import reactor.netty.tcp.TcpClient;
 import java.util.concurrent.TimeUnit;
 
 @Configuration
-@LoadBalancerClient(name="elastic-query-service",
-        configuration=ElasticQueryServiceInstanceListSupplierConfig.class)
+//@LoadBalancerClient(name="elastic-query-service", configuration=ElasticQueryServiceInstanceListSupplierConfig.class)
+//removing above loadbalancing at using eureka. springcloud loadbalancing
 public class WebClientConfig {
 
     public static final Logger LOG = LoggerFactory.getLogger(WebClientConfig.class);

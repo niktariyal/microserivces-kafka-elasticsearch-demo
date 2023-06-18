@@ -16,3 +16,8 @@ spring:
 #    password: Demo_Pwd!2020
 encrypt:
   key: 'Demo_Pwd!2020'
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://discovery-service-1:8761/eureka/,http://discovery-service-2:8762/eureka/
