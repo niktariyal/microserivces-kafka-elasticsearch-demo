@@ -4,6 +4,10 @@ eureka:
     fetch-registry: true
   instance:
     appname: service-registry-cluster
+  server:
+    enable-self-preservation: false   #it tells eureka that do not try to recover if it doesn't get heartbeat from client.bcoz bydefault eureka configured to wait for configured time before evicting the client for higher resiliency, as temporary network outage can alwarys happen So by setting self-preservation mode to false, we forced eureka not to try to recover
+    expected-client-renewal-interval-seconds: 3
+    eviction-interval-timer-in-ms: 2000
 
 spring:
   cloud:
@@ -25,19 +29,20 @@ eureka:
       instanceId: ${spring.application.name}:${spring.application.instance_id:${random.value}}
   client:
     serviceUrl:
-      defaultZone: http://discovery-service-1:8761/eureka/,http://discovery-service-2:8762/eureka/
----
-server:
-  port: 8762
-spring:
-  profiles: peer2
-eureka:
-  instance:
-    hostname: discovery-service-2
-    metadataMap:
-      instanceId: ${spring.application.name}:${spring.application.instance_id:${random.value}}
-  client:
-    serviceUrl:
-      defaultZone: http://discovery-service-2:8762/eureka/,http://discovery-service-1:8761/eureka/
+#      defaultZone: http://discovery-service-1:8761/eureka/,http://discovery-service-2:8762/eureka/
+      defaultZone: http://discovery-service-1:8761/eureka/
+#---
+#server:
+#  port: 8762
+#spring:
+#  profiles: peer2
+#eureka:
+#  instance:
+#    hostname: discovery-service-2
+#    metadataMap:
+#      instanceId: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+#  client:
+#    serviceUrl:
+#      defaultZone: http://discovery-service-2:8762/eureka/,http://discovery-service-1:8761/eureka/
 
 

@@ -15,5 +15,9 @@ encrypt:
 
 eureka:
   client:
-    service-url:
-      defaultZone: http://discovery-service-1:8761/eureka/,http://discovery-service-2:8762/eureka/
+    serviceUrl:
+#      defaultZone: http://discovery-service-1:8761/eureka/,http://discovery-service-2:8762/eureka/
+      defaultZone: http://discovery-service-1:8761/eureka/
+  instance:
+    lease-expiration-duration-in-seconds: 5  #in each 5 second client will ask for new lease from Eureka server
+    lease-renewal-interval-in-seconds: 2  #this is time interval to send heartbeat from client to Eureka server.

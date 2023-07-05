@@ -50,6 +50,7 @@ public class TwitterElasticQueryWebClient implements ElasticQueryWebClient {
         LOG.info("Querying by text {}",requestModel.getText());
         return getWebClient(requestModel)
                 .bodyToMono(ElasticQueryWebClientAnalyticsResponseModel.class)
+//                .log()  //logger
                 .block();
     }
 

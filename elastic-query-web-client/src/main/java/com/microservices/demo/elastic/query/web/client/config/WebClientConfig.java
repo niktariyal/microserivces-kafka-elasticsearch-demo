@@ -35,12 +35,12 @@ public class WebClientConfig {
     private String defaultClientRegistrationId;
 
     private final ElasticQueryWebClientConfigData.WebClient elasticQueryWebClientConfigData;
-    private final UserConfigData userConfigData;
+//    private final UserConfigData userConfigData;
 
-    public WebClientConfig(ElasticQueryWebClientConfigData webClientConfigData,
-                           UserConfigData userConfigData) {
+    public WebClientConfig(ElasticQueryWebClientConfigData webClientConfigData
+                           /*UserConfigData userConfigData*/) {
         this.elasticQueryWebClientConfigData = webClientConfigData.getWebClient();
-        this.userConfigData = userConfigData;
+//        this.userConfigData = userConfigData;
     }
 
     @LoadBalanced

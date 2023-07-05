@@ -29,6 +29,7 @@
         <module>kafka-streams-service</module>
         <module>analytics-service</module>
         <module>discovery-service</module>
+        <module>api-gateway-service</module>
     </modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -64,6 +65,7 @@
 		<kafka-streams-avro-serde.version>5.5.1</kafka-streams-avro-serde.version>
 		<kafka-streams.version>2.6.0</kafka-streams.version>
 		<kafka-clients.version>2.6.0</kafka-clients.version>
+		<spring-boot-starter-data-redis-reactive.version>1.0.5.RELEASE</spring-boot-starter-data-redis-reactive.version>
 	</properties>
 
 	<repositories>
@@ -312,6 +314,20 @@
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
 				<version>${spring-cloud.version}</version>
+			</dependency>
+
+			<!-- api gateway-->
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-starter-gateway</artifactId>
+				<version>${spring-cloud.version}</version>
+			</dependency>
+
+			<!-- circuitbreaker-->
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-starter-circuitbreaker-reactor-resilience4j</artifactId>
+				<version>${spring-boot-starter-data-redis-reactive.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

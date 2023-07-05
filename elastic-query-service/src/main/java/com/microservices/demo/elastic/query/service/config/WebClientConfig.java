@@ -40,8 +40,12 @@ public class WebClientConfig {
         return TcpClient.create()
                 .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, elasticQueryServiceConfigData.getConnectTimeoutMs())
                 .doOnConnected(connection -> {
-                    connection.addHandlerLast(new ReadTimeoutHandler(elasticQueryServiceConfigData.getReadTimeoutMs(), TimeUnit.MILLISECONDS));
-                    connection.addHandlerLast(new WriteTimeoutHandler(elasticQueryServiceConfigData.getWriteTimeoutMs(), TimeUnit.MILLISECONDS));
+                    connection.addHandlerLast(
+                            new ReadTimeoutHandler(elasticQueryServiceConfigData.getReadTimeoutMs(),
+                                    TimeUnit.MILLISECONDS));
+                    connection.addHandlerLast(
+                            new WriteTimeoutHandler(elasticQueryServiceConfigData.getWriteTimeoutMs(),
+                                    TimeUnit.MILLISECONDS));
                 });
     }
 }
