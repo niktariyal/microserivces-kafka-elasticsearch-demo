@@ -369,7 +369,7 @@ services:
     image: ${GROUP_ID}/api.gateway.service:${SERVICE_VERSION:-latest}
     ports:
       - "5016:5016"
-      - "9090:9090"
+      - "9092:9092"
     volumes:
       - "./docker-logs:/workspace/api-gateway-service/logs"
       - "./check-config-server-started.sh:/usr/local/bin/check-config-server-started.sh"
@@ -381,7 +381,7 @@ services:
     environment:
       - "JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5016"
       - "LOGGING_LEVEL_ROOT=info"
-      - "SERVER_PORT=9090"
+      - "SERVER_PORT=9092"
       - "SPRING_CLOUD_CONFIG_URI=http://config-server:8888"
       - "SPRING_REDIS_HOST=redis"
 #      - "EUREKA_INSTANCE_HOSTNAME=discovery-service-1"

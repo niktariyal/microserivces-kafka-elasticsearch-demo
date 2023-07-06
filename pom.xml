@@ -66,6 +66,7 @@
 		<kafka-streams.version>2.6.0</kafka-streams.version>
 		<kafka-clients.version>2.6.0</kafka-clients.version>
 		<spring-boot-starter-data-redis-reactive.version>1.0.5.RELEASE</spring-boot-starter-data-redis-reactive.version>
+		<micrometer-registry-prometheus.version>1.5.2</micrometer-registry-prometheus.version>
 	</properties>
 
 	<repositories>
@@ -328,6 +329,13 @@
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-starter-circuitbreaker-reactor-resilience4j</artifactId>
 				<version>${spring-boot-starter-data-redis-reactive.version}</version>
+			</dependency>
+
+			<!-- Monitoring-->
+			<dependency>
+				<groupId>io.micrometer</groupId>
+				<artifactId>micrometer-registry-prometheus</artifactId>
+				<version>${micrometer-registry-prometheus.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
