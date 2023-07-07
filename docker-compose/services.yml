@@ -49,6 +49,7 @@ services:
       - "TWITTER-TO-KAFKA-SERVICE_ENABLE-V2-TWEETS=false"
       - "SPRING_CLOUD_CONFIG_URI=http://config-server:8888"
       - "ENCRYPT_KEY=Demo_Pwd!2020"
+      - "LOG_APP-NAME=twitter-to-kafka-service"
     networks:
       - ${GLOBAL_NETWORK:-services}
 #
@@ -85,6 +86,7 @@ services:
       - "ELASTIC-CONFIG_INDEX-NAME=twitter-index"
       - "ELASTIC-CONFIG_CONNECTION-URL=http://elastic-1:9200"
       - "ENCRYPT_KEY=Demo_Pwd!2020"
+      - "LOG_APP-NAME=kafka-to-elastic-service"
     networks:
       - ${GLOBAL_NETWORK:-services}
 
@@ -101,6 +103,7 @@ services:
       - "SPRING_CLOUD_CONFIG_SERVER_GIT_URI=https://github.com/niktariyal/spring-cloud-config-server-repository"
       - "SPRING_CLOUD_CONFIG_SERVER_GIT_PASSWORD=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"
       - "ENCRYPT_KEY=Demo_Pwd!2020"
+      - "LOG_APP-NAME=config-server"
     networks:
       - ${GLOBAL_NETWORK:-services}
 
@@ -143,6 +146,7 @@ services:
       - "ELASTIC-QUERY-SERVICE_WEBCLIENT_QUERY-TYPE=ANALYTICS_DATABASE"
       - "EUREKA_CLIENT_SERVICE-URL_DEFAULT-ZONE=http://discovery-service-1:8761/eureka/"
       - "ENCRYPT_KEY=Demo_Pwd!2020"
+      - "LOG_APP-NAME=elastic-query-service-1"
     networks:
       - ${GLOBAL_NETWORK:-services}
 
@@ -187,6 +191,7 @@ services:
       - "ELASTIC-QUERY-SERVICE_WEBCLIENT_QUERY-TYPE=ANALYTICS_DATABASE"
       - "EUREKA_CLIENT_SERVICE-URL_DEFAULT-ZONE=http://discovery-service-1:8761/eureka/"
       - "ENCRYPT_KEY=Demo_Pwd!2020"
+      - "LOG_APP-NAME=elastic-query-service-2"
     networks:
       - ${GLOBAL_NETWORK:-services}
 
@@ -224,6 +229,7 @@ services:
       - "SECURITY_DEFAULT-CLIENT-REGISTRATION-ID=keycloak"
       - "EUREKA_CLIENT_SERVICE-URL_DEFAULT-ZONE=http://discovery-service-1:8761/eureka/"
       - "ENCRYPT_KEY=Demo_Pwd!2020"
+      - "LOG_APP-NAME=elastic-query-web-client-1"
     networks:
       - ${GLOBAL_NETWORK:-services}
 
@@ -292,6 +298,7 @@ services:
       - "KAFKA-CONFIG_SCHEMA-REGISTRY-URL=http://schema-registry:8081"
       - "EUREKA_CLIENT_SERVICE-URL_DEFAULT-ZONE=http://discovery-service-1:8761/eureka/"
       - "ENCRYPT_KEY=Demo_Pwd!2020"
+      - "LOG_APP-NAME=kafka-streams-service"
     networks:
       - ${GLOBAL_NETWORK:-services}
 
@@ -326,6 +333,7 @@ services:
       - "KAFKA-CONFIG_SCHEMA-REGISTRY-URL=http://schema-registry:8081"
       - "EUREKA_CLIENT_SERVICE-URL_DEFAULT-ZONE=http://discovery-service-1:8761/eureka/"
       - "ENCRYPT_KEY=Demo_Pwd!2020"
+      - "LOG_APP-NAME=analytics-service"
     networks:
       - ${GLOBAL_NETWORK:-services}
 
@@ -335,7 +343,7 @@ services:
       - "5014:5014"
       - "8761:8761"
     volumes:
-      - "./docker-logs:/workspace/discovery-service/logs"
+      - "./docker-logs:/workspace/discovery-service-1/logs"
     environment:
       - "JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5014 -Xss256K"
       - "LOGGING_LEVEL_ROOT=debug"
@@ -345,6 +353,7 @@ services:
 #      - "EUREKA_CLIENT_SERVICE-URL_DEFAULT-ZONE=http://discovery-service-1:8761/eureka/,http://discovery-service-2:8762/eureka/"
       - "EUREKA_CLIENT_SERVICE-URL_DEFAULT-ZONE=http://discovery-service-1:8761/eureka/"
       - "ENCRYPT_KEY=Demo_Pwd!2020"
+      - "LOG_APP-NAME=discovery-service-1"
     networks:
       - ${GLOBAL_NETWORK:-services}
 #  discovery-service-2:
@@ -390,5 +399,6 @@ services:
       - "EUREKA_INSTANCE_LEASE-EXPIRATION-DURATION-IN-SECONDS=5"
       - "EUREKA_INSTANCE_LEASE-RENEWAL-INTERVAL-IN-SECONDS=5"
       - "ENCRYPT_KEY=Demo_Pwd!2020"
+      - "LOG_APP-NAME=api-gateway-service"
     networks:
       - ${GLOBAL_NETWORK:-services}

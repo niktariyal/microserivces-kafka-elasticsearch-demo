@@ -16,3 +16,6 @@ spring:
 #    password: Demo_Pwd!2020
 encrypt:
   key: 'Demo_Pwd!2020'
+
+log:
+  app-name: kafka-to-elastic-service

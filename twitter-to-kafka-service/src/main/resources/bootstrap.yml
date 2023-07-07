@@ -17,8 +17,10 @@ spring:
 encrypt:
   key: 'Demo_Pwd!2020'
 
-
 twitter-to-kafka-service:
   enable-v2-tweets: false
   enable-v1-tweets: false
   enable-mock-tweets: true
+
+log:
+  app-name: twitter-to-kafka-service

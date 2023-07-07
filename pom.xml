@@ -30,7 +30,8 @@
         <module>analytics-service</module>
         <module>discovery-service</module>
         <module>api-gateway-service</module>
-    </modules>
+		<module>mdc-interceptor</module>
+	</modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
@@ -67,6 +68,7 @@
 		<kafka-clients.version>2.6.0</kafka-clients.version>
 		<spring-boot-starter-data-redis-reactive.version>1.0.5.RELEASE</spring-boot-starter-data-redis-reactive.version>
 		<micrometer-registry-prometheus.version>1.5.2</micrometer-registry-prometheus.version>
+		<logstash-logback-encoder.version>6.5</logstash-logback-encoder.version>
 	</properties>
 
 	<repositories>
@@ -75,6 +77,20 @@
 			<url>https://packages.confluent.io/maven/</url>
 		</repository>
 	</repositories>
+
+	<!--by this logstash logback dependency it will be inherited by child pom automatically-->
+	<dependencies>
+		<dependency>
+			<groupId>net.logstash.logback</groupId>
+			<artifactId>logstash-logback-encoder</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.jasypt</groupId>
+			<artifactId>jasypt</artifactId>
+			<version>1.9.3</version>
+			<scope>compile</scope>
+		</dependency>
+	</dependencies>
 
 	<dependencyManagement>
 		<dependencies>
@@ -142,6 +158,12 @@
 			<dependency>
 				<groupId>com.microservice.demo</groupId>
 				<artifactId>elastic-query-web-client-common</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<!--adding MDC aggregate logging service-->
+			<dependency>
+				<groupId>com.microservice.demo</groupId>
+				<artifactId>mdc-interceptor</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 
@@ -336,6 +358,13 @@
 				<groupId>io.micrometer</groupId>
 				<artifactId>micrometer-registry-prometheus</artifactId>
 				<version>${micrometer-registry-prometheus.version}</version>
+			</dependency>
+
+			<!--adding logging-->
+			<dependency>
+				<groupId>net.logstash.logback</groupId>
+				<artifactId>logstash-logback-encoder</artifactId>
+				<version>${logstash-logback-encoder.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

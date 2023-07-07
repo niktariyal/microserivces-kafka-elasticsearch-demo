@@ -21,3 +21,6 @@ spring:
         enabled: false
   profiles:
     active: singleserver
+
+log:
+  app-name: discovery-service

@@ -78,6 +78,11 @@
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
 
+        <!--adding MDC aggregate logging local service-->
+        <dependency>
+            <groupId>com.microservice.demo</groupId>
+            <artifactId>mdc-interceptor</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

@@ -72,6 +72,12 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
+
+        <!--adding MDC aggregate logging local service-->
+        <dependency>
+            <groupId>com.microservice.demo</groupId>
+            <artifactId>mdc-interceptor</artifactId>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

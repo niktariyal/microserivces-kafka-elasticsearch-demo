@@ -28,3 +28,6 @@ spring:
 #this config is required for encrypt/decrypt end points
 encrypt:
   key: 'Demo_Pwd!2020'
+
+log:
+  app-name: config-server
