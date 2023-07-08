@@ -83,6 +83,15 @@
             <groupId>com.microservice.demo</groupId>
             <artifactId>mdc-interceptor</artifactId>
         </dependency>
+        <!--adding sleuth and zipkin dependencies-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-sleuth</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-zipkin</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

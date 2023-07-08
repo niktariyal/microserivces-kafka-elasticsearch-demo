@@ -366,6 +366,18 @@
 				<artifactId>logstash-logback-encoder</artifactId>
 				<version>${logstash-logback-encoder.version}</version>
 			</dependency>
+
+			<!--adding sleuth and zipkin dependencies-->
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-starter-sleuth</artifactId>
+				<version>${spring-cloud.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-starter-zipkin</artifactId>
+				<version>${spring-cloud.version}</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 	<build>
